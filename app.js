@@ -46,7 +46,8 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
         repo: payload.repository.name,
         pull_number: new_pr.data.number,
         merge_method: 'squash',
-        commit_title: '[skip ci] chore: Mass bump versions'
+        commit_title: '[skip ci] chore: Mass bump versions',
+        commit_message: ''
       })
       await octokit.rest.git.deleteRef({
         owner: payload.repository.owner.login,
