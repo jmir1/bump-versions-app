@@ -30,7 +30,7 @@ app.octokit.log.debug(`Authenticated as '${data.name}'`)
 
 // Subscribe to the "pull_request.opened" webhook event
 app.webhooks.on('push', async ({ octokit, payload }) => {
-  console.log(`Received a pull request event for #${payload.pull_request.number}`)
+  console.log(`Received a push event for ${payload.ref}`)
   try {
     if (payload.ref === 'refs/heads/mass-bump-versions') {
       console.log('Push to mass-bump-versions branch')
