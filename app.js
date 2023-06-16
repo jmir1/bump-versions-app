@@ -42,6 +42,7 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
         head: 'mass-bump-versions',
         base: 'master'
       })
+      console.log('Merge PR')
       await octokit.rest.pulls.merge({
         owner: payload.repository.owner.login,
         repo: payload.repository.name,
@@ -50,6 +51,7 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
         commit_title: '[skip ci] chore: Mass bump on extensions',
         commit_message: ''
       })
+      console.log('Delete branch')
       await octokit.rest.git.deleteRef({
         owner: payload.repository.owner.login,
         repo: payload.repository.name,
