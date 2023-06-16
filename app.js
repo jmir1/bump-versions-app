@@ -38,7 +38,7 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
       let new_pr = await octokit.rest.pulls.create({
         owner: payload.repository.owner.login,
         repo: payload.repository.name,
-        title: '[skip ci] chore: Mass bump versions',
+        title: '[skip ci] chore: Mass bump on extensions',
         head: 'mass-bump-versions',
         base: 'master'
       })
@@ -47,7 +47,7 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
         repo: payload.repository.name,
         pull_number: new_pr.data.number,
         merge_method: 'squash',
-        commit_title: '[skip ci] chore: Mass bump versions',
+        commit_title: '[skip ci] chore: Mass bump on extensions',
         commit_message: ''
       })
       await octokit.rest.git.deleteRef({
