@@ -32,7 +32,8 @@ app.octokit.log.debug(`Authenticated as '${data.name}'`)
 app.webhooks.on('push', async ({ octokit, payload }) => {
   console.log(`Received a push event for ${payload.ref}`)
   try {
-    if (payload.ref === 'refs/heads/mass-bump-versions') {
+    if (payload.ref === 'refs/heads/mass-bump-versions' &&
+      payload.deleted === false) {
       console.log('Create PR')
       let new_pr = await octokit.rest.pulls.create({
         owner: payload.repository.owner.login,
