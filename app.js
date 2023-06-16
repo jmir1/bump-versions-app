@@ -33,8 +33,8 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
   console.log(`Received a push event for ${payload.ref}`)
   try {
     if (payload.ref === 'refs/heads/mass-bump-versions') {
-      console.log('Push to mass-bump-versions branch')
-      await octokit.rest.pulls.create({
+      console.log('Create PR')
+      let new_pr = await octokit.rest.pulls.create({
         owner: payload.repository.owner.login,
         repo: payload.repository.name,
         title: '[skip ci] chore: Mass bump versions',
@@ -44,7 +44,7 @@ app.webhooks.on('push', async ({ octokit, payload }) => {
       await octokit.rest.pulls.merge({
         owner: payload.repository.owner.login,
         repo: payload.repository.name,
-        pull_number: payload.pull_request.number,
+        pull_number: new_pr.data.number,
         merge_method: 'squash',
         commit_title: '[skip ci] chore: Mass bump versions'
       })
